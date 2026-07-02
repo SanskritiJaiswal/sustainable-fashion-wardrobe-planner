@@ -12,12 +12,30 @@ function AddClothingForm({ addClothing }) {
     color: "",
     season: "",
     occasion: "",
+    image: "",
   });
+
+  const [preview, setPreview] = useState("");
 
   function handleChange(e) {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
+    });
+  }
+
+  function handleImageChange(e) {
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const imageURL = URL.createObjectURL(file);
+
+    setPreview(imageURL);
+
+    setFormData({
+      ...formData,
+      image: imageURL,
     });
   }
 
@@ -46,7 +64,10 @@ function AddClothingForm({ addClothing }) {
       color: "",
       season: "",
       occasion: "",
+      image: "",
     });
+
+    setPreview("");
   }
 
   return (
@@ -76,9 +97,10 @@ function AddClothingForm({ addClothing }) {
           className="border rounded-lg p-3"
         >
           <option value="">Category</option>
-
           {categories.map((item) => (
-            <option key={item}>{item}</option>
+            <option key={item} value={item}>
+              {item}
+            </option>
           ))}
         </select>
 
@@ -89,9 +111,10 @@ function AddClothingForm({ addClothing }) {
           className="border rounded-lg p-3"
         >
           <option value="">Color</option>
-
           {colors.map((item) => (
-            <option key={item}>{item}</option>
+            <option key={item} value={item}>
+              {item}
+            </option>
           ))}
         </select>
 
@@ -102,9 +125,10 @@ function AddClothingForm({ addClothing }) {
           className="border rounded-lg p-3"
         >
           <option value="">Season</option>
-
           {seasons.map((item) => (
-            <option key={item}>{item}</option>
+            <option key={item} value={item}>
+              {item}
+            </option>
           ))}
         </select>
 
@@ -115,16 +139,37 @@ function AddClothingForm({ addClothing }) {
           className="border rounded-lg p-3"
         >
           <option value="">Occasion</option>
-
           {occasions.map((item) => (
-            <option key={item}>{item}</option>
+            <option key={item} value={item}>
+              {item}
+            </option>
           ))}
         </select>
+
+        <div className="md:col-span-2">
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="border rounded-lg p-3 w-full"
+          />
+        </div>
+
+        {preview && (
+          <div className="md:col-span-2">
+            <img
+              src={preview}
+              alt="Preview"
+              className="w-44 h-44 object-cover rounded-xl shadow"
+            />
+          </div>
+        )}
 
       </div>
 
       <button
-        className="mt-6 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700"
+        type="submit"
+        className="mt-6 bg-green-600 text-white px-6 py-3 rounded-lg hover:bg-green-700 transition"
       >
         Add Clothing
       </button>
