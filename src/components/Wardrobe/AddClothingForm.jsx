@@ -53,10 +53,14 @@ function AddClothingForm({ addClothing }) {
       return;
     }
 
-    addClothing({
-      id: Date.now(),
-      ...formData,
-    });
+   addClothing({
+  id: Date.now(),
+  ...formData,
+  wearCount: 0,
+  lastWorn: null,
+  purchasePrice: "",
+  purchaseDate: "",
+});
 
     setFormData({
       name: "",
