@@ -8,6 +8,7 @@ function WardrobeProvider({ children }) {
     const saved = localStorage.getItem("wardrobe");
     return saved ? JSON.parse(saved) : dummyWardrobe;
   });
+  const [selectedItem, setSelectedItem] = useState(null);
 
   // ---------- Add ----------
 
@@ -22,6 +23,15 @@ function WardrobeProvider({ children }) {
       prev.filter((item) => item.id !== id)
     );
   }
+  function editClothing(updatedItem) {
+  setClothes((prev) =>
+    prev.map((item) =>
+      item.id === updatedItem.id ? updatedItem : item
+    )
+  );
+
+  setSelectedItem(null);
+}
 
   // ---------- Wear ----------
 
@@ -79,6 +89,9 @@ function WardrobeProvider({ children }) {
         clothes,
         addClothing,
         deleteClothing,
+         editClothing,
+         selectedItem,
+         setSelectedItem,
         wearClothing,
         toggleFavorite,
         updateClothing,

@@ -10,6 +10,7 @@ import DashboardOverview from "../components/Dashboard/DashboardOverview";
 import Navbar from "../components/Navbar";
 import AddClothingForm from "../components/Wardrobe/AddClothingForm";
 import ClothingCard from "../components/Wardrobe/ClothingCard";
+import EditClothingModal from "../components/Wardrobe/EditClothingModal";
 
 import { WardrobeContext } from "../context/WardrobeContext";
 
@@ -20,6 +21,7 @@ function Wardrobe() {
   deleteClothing,
   wearClothing,
   toggleFavorite,
+  setSelectedItem,
 } = useContext(WardrobeContext);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -212,6 +214,8 @@ function Wardrobe() {
                 deleteClothing={deleteClothing}
                 wearClothing={wearClothing}
                  toggleFavorite={toggleFavorite}
+                 setSelectedItem={setSelectedItem}
+
               />
 
             ))
@@ -244,7 +248,9 @@ function Wardrobe() {
 
       </div>
 
-    </>
+<EditClothingModal />
+
+</>
   );
 }
 

@@ -14,6 +14,7 @@ function ClothingCard({
   deleteClothing,
   wearClothing,
   toggleFavorite,
+  setSelectedItem
 }) {
   return (
     <div className="group bg-white rounded-3xl shadow-lg border border-green-100 overflow-hidden hover:-translate-y-2 hover:shadow-2xl transition-all duration-300">
@@ -145,11 +146,12 @@ function ClothingCard({
           <div className="flex justify-between gap-3">
 
             <button
-              className="flex-1 flex justify-center items-center gap-2 border border-green-600 text-green-600 py-2 rounded-xl hover:bg-green-50 transition"
-            >
-              <FaEdit />
-              Edit
-            </button>
+             onClick={() => setSelectedItem(item)}
+             className="flex-1 flex justify-center items-center gap-2 border border-green-600 text-green-600 py-2 rounded-xl hover:bg-green-50 transition"
+>
+            <FaEdit />
+             Edit
+           </button>
 
             <button
               onClick={() => deleteClothing(item.id)}
