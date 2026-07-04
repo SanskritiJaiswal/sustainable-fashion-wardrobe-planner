@@ -1,35 +1,58 @@
 function StatCard({ title, value, icon, color }) {
   return (
     <div
-className="
-bg-gradient-to-br
-from-white
-to-green-50
-rounded-3xl
-shadow-lg
-hover:shadow-2xl
-hover:-translate-y-2
-transition-all
-duration-300
-p-6
-border
-"
-
+      className="
+      group
+      bg-green-50
+      border border-green-100
+      rounded-2xl
+      px-5
+      py-5
+      flex
+      items-center
+      gap-4
+      shadow-sm
+      hover:shadow-xl
+      hover:-translate-y-1
+      hover:bg-white
+      transition-all
+      duration-300
+      min-h-[100px]
+      "
     >
+
       <div
-        className="text-4xl mb-4"
-        style={{ color }}
+        className="
+        w-12
+        h-12
+        rounded-xl
+        flex
+        items-center
+        justify-center
+        text-white
+        text-xl
+        shrink-0
+        group-hover:scale-110
+        transition-transform
+        duration-300
+        "
+        style={{ backgroundColor: color }}
       >
         {icon}
       </div>
 
-     <h3 className="text-green-700 font-semibold uppercase tracking-wider text-sm">
-        {title}
-      </h3>
+      <div className="leading-tight">
 
-      <p className="text-5xl font-extrabold mt-4 text-gray-800">
-        {value}
-      </p>
+        <p className="text-sm font-bold uppercase tracking-wide text-gray-700">
+          {title}
+        </p>
+
+        <h2 className="text-3xl font-extrabold text-gray-900 mt-1">
+          {value}
+        </h2>
+
+      </div>
+
     </div>
   );
 }

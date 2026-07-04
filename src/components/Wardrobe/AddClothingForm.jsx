@@ -12,6 +12,8 @@ function AddClothingForm({ addClothing }) {
     color: "",
     season: "",
     occasion: "",
+    purchasePrice: "",
+    purchaseDate: "",
     image: "",
   });
 
@@ -53,23 +55,24 @@ function AddClothingForm({ addClothing }) {
       return;
     }
 
-   addClothing({
+  addClothing({
   id: Date.now(),
   ...formData,
   wearCount: 0,
   lastWorn: null,
-  purchasePrice: "",
-  purchaseDate: "",
+  favorite: false,
 });
 
     setFormData({
-      name: "",
-      category: "",
-      color: "",
-      season: "",
-      occasion: "",
-      image: "",
-    });
+  name: "",
+  category: "",
+  color: "",
+  season: "",
+  occasion: "",
+  purchasePrice: "",
+  purchaseDate: "",
+  image: "",
+});
 
     setPreview("");
   }
@@ -149,6 +152,23 @@ function AddClothingForm({ addClothing }) {
             </option>
           ))}
         </select>
+        <input
+  type="number"
+  name="purchasePrice"
+  placeholder="Purchase Price (₹)"
+  value={formData.purchasePrice}
+  onChange={handleChange}
+  className="border rounded-lg p-3"
+/>
+
+<input
+  type="date"
+  name="purchaseDate"
+  placeholder="Purchase Date"
+  value={formData.purchaseDate}
+  onChange={handleChange}
+  className="border rounded-lg p-3"
+/>
 
         <div className="md:col-span-2">
           <input

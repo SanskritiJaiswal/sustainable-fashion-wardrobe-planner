@@ -4,72 +4,89 @@ import dummyWardrobe from "../data/dummyWardrobe";
 export const WardrobeContext = createContext();
 
 function WardrobeProvider({ children }) {
-
   const [clothes, setClothes] = useState(() => {
-
     const saved = localStorage.getItem("wardrobe");
-
-    const data = saved ? JSON.parse(saved) : dummyWardrobe;
-
-    // Ensure older clothes also have the new fields
-    return data.map((item) => ({
-      wearCount: 0,
-      lastWorn: null,
-      purchasePrice: "",
-      purchaseDate: "",
-      ...item,
-    }));
+    return saved ? JSON.parse(saved) : dummyWardrobe;
   });
+
+  // ---------- Add ----------
 
   function addClothing(item) {
     setClothes((prev) => [item, ...prev]);
   }
 
+  // ---------- Delete ----------
+
   function deleteClothing(id) {
-    setClothes((prev) => prev.filter((item) => item.id !== id));
+    setClothes((prev) =>
+      prev.filter((item) => item.id !== id)
+    );
   }
 
+  // ---------- Wear ----------
+
   function wearClothing(id) {
-
     setClothes((prev) =>
-      prev.map((item) => {
-
-        if (item.id === id) {
-
-          return {
-            ...item,
-            wearCount: item.wearCount + 1,
-            lastWorn: new Date().toLocaleDateString(),
-          };
-
-        }
-
-        return item;
-
-      })
+      prev.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              wearCount: (item.wearCount || 0) + 1,
+              lastWorn: new Date().toLocaleDateString(),
+            }
+          : item
+      )
     );
+  }
 
+  // ---------- Favourite ----------
+
+  function toggleFavorite(id) {
+    setClothes((prev) =>
+      prev.map((item) =>
+        item.id === id
+          ? {
+              ...item,
+              favorite: !item.favorite,
+            }
+          : item
+      )
+    );
+  }
+
+  // ---------- Update ----------
+
+  function updateClothing(updatedItem) {
+    setClothes((prev) =>
+      prev.map((item) =>
+        item.id === updatedItem.id
+          ? updatedItem
+          : item
+      )
+    );
   }
 
   useEffect(() => {
-    localStorage.setItem("wardrobe", JSON.stringify(clothes));
+    localStorage.setItem(
+      "wardrobe",
+      JSON.stringify(clothes)
+    );
   }, [clothes]);
 
   return (
-
     <WardrobeContext.Provider
       value={{
         clothes,
         addClothing,
         deleteClothing,
         wearClothing,
+        toggleFavorite,
+        updateClothing,
       }}
     >
       {children}
     </WardrobeContext.Provider>
-
   );
-
 }
 
 export default WardrobeProvider;
